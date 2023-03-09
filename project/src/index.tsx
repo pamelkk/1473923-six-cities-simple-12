@@ -6,8 +6,12 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
+const Info = {
+  CountForRent: 312,
+} as const;
+
 root.render(
   <React.StrictMode>
-    <App />
+    <App countForRent={Info.CountForRent} />
   </React.StrictMode>,
 );
