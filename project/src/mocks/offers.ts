@@ -21,15 +21,15 @@ export const Offers: offersType[] = [
       isPro: true,
       name: 'Angelina'
     },
-    id: 1,
+    id: 0,
     images: [
-      'img/1.png'
+      'http://picsum.photos/300/200?r=0.0762163005163319'
     ],
     isFavorite: false,
     isPremium: false,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8
     },
     maxAdults: 4,
@@ -59,9 +59,9 @@ export const Offers: offersType[] = [
       isPro: true,
       name: 'Angelina'
     },
-    id: 2,
+    id: 1,
     images: [
-      'img/1.png'
+      'http://picsum.photos/300/200?r=0.0762163005163319'
     ],
     isFavorite: true,
     isPremium: false,
@@ -97,9 +97,9 @@ export const Offers: offersType[] = [
       isPro: true,
       name: 'Angelina'
     },
-    id: 3,
+    id: 2,
     images: [
-      'img/1.png'
+      'http://picsum.photos/300/200?r=0.0762163005163319'
     ],
     isFavorite: true,
     isPremium: true,
@@ -135,9 +135,9 @@ export const Offers: offersType[] = [
       isPro: true,
       name: 'Angelina'
     },
-    id: 4,
+    id: 3,
     images: [
-      'img/1.png'
+      'http://picsum.photos/300/200?r=0.0762163005163319'
     ],
     isFavorite: false,
     isPremium: true,

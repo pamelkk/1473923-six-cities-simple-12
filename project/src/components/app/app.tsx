@@ -6,17 +6,16 @@ import Room from '../../pages/Room/Room';
 import { offersType } from '../../types/types';
 
 type AppProps = {
-  countForRent: number;
   offers: offersType[];
 }
 
-function App({ countForRent, offers }: AppProps): JSX.Element {
+function App({ offers }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/login' element={<Login />} />
-        <Route path='/' element={<HomePage countForRent={countForRent} offers={offers} />} />
-        <Route path='/offer/:id' element={<Room />} />
+        <Route path='/' element={<HomePage offers={offers} />} />
+        <Route path='/offer/:id' element={<Room offers={offers}/>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

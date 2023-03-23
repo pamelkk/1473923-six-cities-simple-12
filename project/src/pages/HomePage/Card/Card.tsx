@@ -1,23 +1,23 @@
 import { Link } from 'react-router-dom';
+import { ratingInPercent } from '../../../const/const';
 import { offersType } from '../../../types/types';
 
 type CardsProps = {
   offer: offersType;
+  difference: string;
 }
 
-const Card = ({offer}: CardsProps): JSX.Element => {
+const Card = ({ offer, difference }: CardsProps): JSX.Element => {
   const { id, isPremium, previewImage, price, title, type, rating } = offer;
 
-  const ratingInPercent = (rate: number):number => (rate / 5) * 100;
-
   return (
-    <article className='cities__card place-card'>
+    <article className={`${difference}__card place-card`}>
       {isPremium ?
         <div className='place-card__mark'>
           <span>Premium</span>
         </div> : ''}
-      <div className='cities__image-wrapper place-card__image-wrapper'>
-        <Link to={`/offer/:${id}`}>
+      <div className={`${difference}__image-wrapper place-card__image-wrapper`}>
+        <Link to={`/offer/${id}`}>
           <img className='place-card__image' src={previewImage} width='260' height='200' alt='Place' />
         </Link>
       </div>
@@ -34,9 +34,11 @@ const Card = ({offer}: CardsProps): JSX.Element => {
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>
-        <h2 className='place-card__name'>
-          <Link to={`/offer/:${id}`}>{title}</Link>
-        </h2>
+        <Link to={`/offer/:${id}`}>
+          <h2 className='place-card__name'>
+            {title}
+          </h2>
+        </Link>
         <p className='place-card__type'>{type}</p>
       </div>
     </article>

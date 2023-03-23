@@ -4,7 +4,7 @@ type GenreCityLocation = {
     zoom: number;
 };
 
-type GenreCity = {
+export type GenreCity = {
     location: GenreCityLocation;
     name: string;
 };
@@ -16,7 +16,7 @@ type GenreHost = {
     name: string;
 };
 
-type GenreLocation = {
+export type GenreLocation = {
     latitude: number;
     longitude: number;
     zoom: number;
