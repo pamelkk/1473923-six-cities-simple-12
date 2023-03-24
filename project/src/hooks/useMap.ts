@@ -1,24 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
-import leaflet from 'leaflet';
-import { GenreCity } from '../types/types';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import leaflet, { Map } from 'leaflet';
+import { offersType } from '../types/types';
 
-type useMapProps = {
-  mapRef: HTMLInputElement | null;
-  city: GenreCity;
-}
-
-function useMap({mapRef, city}: useMapProps) {
-  const [map, setMap] = useState(null);
+function useMap(mapRef: MutableRefObject<null>, points: offersType[]) {
+  const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 
   useEffect(() => {
-    if (mapRef !== null && !isRenderedRef.current) {
-      const instance = leaflet.map(mapRef, {
+    if (mapRef.current !== null && !isRenderedRef.current) {
+      const instance = leaflet.map(mapRef.current, {
         center: {
-          lat: city.location.latitude,
-          lng: city.location.longitude,
+          lat: points[0].city.location.latitude,
+          lng: points[0].city.location.longitude,
         },
-        zoom: city.location.zoom,
+        zoom: points[0].city.location.zoom,
       });
 
       leaflet
@@ -33,7 +28,7 @@ function useMap({mapRef, city}: useMapProps) {
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, city]);
+  }, [mapRef, points]);
 
   return map;
 }

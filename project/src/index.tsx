@@ -8,12 +8,11 @@ const root = ReactDOM.createRoot(
 );
 
 const Info = {
-  CountForRent: 312,
   offers: Offers
 } as const;
 
 root.render(
   <React.StrictMode>
-    <App countForRent={Info.CountForRent} offers={Info.offers} />
+    <App offers={Info.offers} />
   </React.StrictMode>,
 );

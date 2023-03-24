@@ -15,10 +15,13 @@ const HomePage = ({ offers }: HomePageProps): JSX.Element => {
 
   const changeTown = (newCity: string) => {
     setTown(newCity);
-    console.log(town)
   };
 
   const filteredOffers = offers.filter((offer) => offer.city.name === town);
+
+  if (!filteredOffers) {
+    throw new TypeError('The value was promised to always be there!');
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -83,7 +86,7 @@ const HomePage = ({ offers }: HomePageProps): JSX.Element => {
               <CardsList offers={filteredOffers} difference={difference} />
             </section>
             <div className="cities__right-section">
-              <Map city={filteredOffers[0].city} points={filteredOffers} />
+              <Map points={filteredOffers} />
             </div>
           </div>
         </div>
