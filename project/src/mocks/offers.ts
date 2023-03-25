@@ -47,7 +47,7 @@ export const Offers: offersType[] = [
         longitude: 3.895168,
         zoom: 10
       },
-      name: 'Madrid'
+      name: 'Brussels'
     },
     description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     goods: [
@@ -123,7 +123,7 @@ export const Offers: offersType[] = [
         longitude: 4.895168,
         zoom: 10
       },
-      name: 'Moscow'
+      name: 'Cologne'
     },
     description: 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
     goods: [

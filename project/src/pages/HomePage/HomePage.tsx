@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { CITIES } from '../../mocks/points';
 import { offersType } from '../../types/types';
 import Map from '../Map/Map';
@@ -18,6 +19,7 @@ const HomePage = ({ offers }: HomePageProps): JSX.Element => {
   };
 
   const filteredOffers = offers.filter((offer) => offer.city.name === town);
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
 
   if (!filteredOffers) {
     throw new TypeError('The value was promised to always be there');
@@ -40,10 +42,14 @@ const HomePage = ({ offers }: HomePageProps): JSX.Element => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <div className="header__nav-profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                  <a className="header__nav-link header__nav-link--profile" href="#">
+                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                    </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </div>
+                    <Link to='/favorites'>
+                      <span className="header__favorite-count">{favoriteOffers.length}</span>
+                    </Link>
+                  </a>
                 </li>
                 <li className="header__nav-item">
                   <a className="header__nav-link" href="#">

@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Favorites from '../../pages/Favorites/Favorites';
 import HomePage from '../../pages/HomePage/HomePage';
 import Login from '../../pages/Login/Login';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
@@ -17,6 +18,7 @@ function App({ offers }: AppProps): JSX.Element {
         <Route path='/' element={<HomePage offers={offers} />} />
         <Route path='/offer/:id' element={<Room offers={offers}/>} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/favorites" element={<Favorites offers={offers} />} />
       </Routes>
     </BrowserRouter>
   );
