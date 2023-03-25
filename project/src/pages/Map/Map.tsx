@@ -39,7 +39,7 @@ const Map = ({ points }: MapProps): JSX.Element => {
           .addTo(map);
       });
     }
-  }, [map, points]);
+  }, [defaultCustomIcon, map, points]);
 
   return (
     <section style={{ height: 'auto' }}
