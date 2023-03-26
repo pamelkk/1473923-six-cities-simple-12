@@ -28,8 +28,8 @@ export const Offers: offersType[] = [
     isFavorite: false,
     isPremium: false,
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      latitude: 52.366821,
+      longitude: 4.846674,
       zoom: 8
     },
     maxAdults: 4,
@@ -66,8 +66,8 @@ export const Offers: offersType[] = [
     isFavorite: true,
     isPremium: false,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 50.845966,
+      longitude: 4.334524,
       zoom: 8
     },
     maxAdults: 4,
@@ -104,8 +104,8 @@ export const Offers: offersType[] = [
     isFavorite: true,
     isPremium: true,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 48.876655,
+      longitude: 2.312985,
       zoom: 8
     },
     maxAdults: 4,
@@ -142,8 +142,8 @@ export const Offers: offersType[] = [
     isFavorite: false,
     isPremium: true,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 50.951674,
+      longitude: 6.937258,
       zoom: 8
     },
     maxAdults: 4,

@@ -42,7 +42,7 @@ const Map = ({ points }: MapProps): JSX.Element => {
   }, [defaultCustomIcon, map, points]);
 
   return (
-    <section style={{ height: 'auto' }}
+    <section style={{ height: '100%' }}
       ref={mapRef} className="cities__map map"
     >
     </section>

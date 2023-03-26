@@ -3,6 +3,7 @@ import { ratingInPercent } from '../../const/const';
 import { reviews } from '../../mocks/reviews';
 import { offersType } from '../../types/types';
 import CardsList from '../HomePage/CardsList/CardsList';
+import Map from '../Map/Map';
 import Reviews from '../Reviews/Reviews';
 
 type RoomProps = {
@@ -90,7 +91,9 @@ const Room = ({ offers }: RoomProps): JSX.Element => {
             <Reviews reviews={reviews} />
           </div>
         </div>
-        <section className="property__map map"></section>
+        <section className="property__map map">
+          <Map points={otherRooms} />
+        </section>
       </section>
       <div className="container">
         <section className="near-places places">
