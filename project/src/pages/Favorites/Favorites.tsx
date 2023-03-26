@@ -1,11 +1,8 @@
-import { offersType } from '../../types/types';
+import { UseAppSelector } from '../../hooks';
 import CardsList from '../HomePage/CardsList/CardsList';
 
-type FavoritesProps = {
-  offers: offersType[];
-}
-
-const Favorites = ({ offers }: FavoritesProps): JSX.Element => {
+const Favorites = (): JSX.Element => {
+  const offers = UseAppSelector((state) => state.offers);
   const difference = 'favorites';
   const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
 

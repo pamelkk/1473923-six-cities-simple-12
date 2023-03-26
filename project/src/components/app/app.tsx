@@ -4,21 +4,20 @@ import HomePage from '../../pages/HomePage/HomePage';
 import Login from '../../pages/Login/Login';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import Room from '../../pages/Room/Room';
-import { offersType } from '../../types/types';
+import ScrollToTop from '../ScrollToTop';
 
-type AppProps = {
-  offers: offersType[];
-}
-
-function App({ offers }: AppProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path='/login' element={<Login />} />
-        <Route path='/' element={<HomePage offers={offers} />} />
+        {/* <Route index element={<HomePage offers={offers} />} /> */}
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="/favorites" element={<Favorites offers={offers} />} />
-        <Route path='/offer/:id' element={<Room offers={offers} />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/:city" element={<HomePage />}>
+          <Route path='/:city/offer/:id' element={<Room />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
