@@ -8,7 +8,7 @@ type CardsProps = {
 }
 
 const Card = ({ offer, difference }: CardsProps): JSX.Element => {
-  const { id, isPremium, previewImage, price, title, type, rating, isFavorite } = offer;
+  const { id, isPremium, previewImage, city, price, title, type, rating, isFavorite } = offer;
 
   return (
     <article className={`${difference}__card place-card`}>
@@ -17,7 +17,7 @@ const Card = ({ offer, difference }: CardsProps): JSX.Element => {
           <span>Premium</span>
         </div> : ''}
       <div className={`${difference}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offer/${id}`}>
+        <Link to={`${city.name}/offer/${id}`}>
           <img className='place-card__image' src={previewImage} width='260' height='200' alt='Place' />
         </Link>
       </div>
@@ -40,7 +40,7 @@ const Card = ({ offer, difference }: CardsProps): JSX.Element => {
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>
-        <Link to={`/offer/:${id}`}>
+        <Link to={`/offer/${id}`}>
           <h2 className='place-card__name'>
             {title}
           </h2>

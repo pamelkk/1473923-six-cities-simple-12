@@ -1,22 +1,13 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CITIES } from '../../mocks/points';
-import { offersType } from '../../types/types';
+import { UseAppSelector } from '../../hooks';
 import Map from '../Map/Map';
 import CardsList from './CardsList/CardsList';
 import LocationsList from './Locations/LocationsList';
 
-type HomePageProps = {
-  offers: offersType[];
-}
-
-const HomePage = ({ offers }: HomePageProps): JSX.Element => {
-  const [town, setTown] = useState('Paris');
+const HomePage = (): JSX.Element => {
+  const offers = UseAppSelector((state) => state.offers);
+  const town = UseAppSelector((state) => state.city);
   const difference = 'cities';
-
-  const changeTown = (newCity: string) => {
-    setTown(newCity);
-  };
 
   const filteredOffers = offers.filter((offer) => offer.city.name === town);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
@@ -35,9 +26,9 @@ const HomePage = ({ offers }: HomePageProps): JSX.Element => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
+              <Link to="/" className="header__logo-link header__logo-link--active">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -66,7 +57,7 @@ const HomePage = ({ offers }: HomePageProps): JSX.Element => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList cities={CITIES} changeTown={changeTown} />
+            <LocationsList />
           </section>
         </div>
         <div className="cities">

@@ -1,17 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { ratingInPercent } from '../../const/const';
-import { reviews } from '../../mocks/reviews';
-import { offersType } from '../../types/types';
+import { UseAppSelector } from '../../hooks';
 import CardsList from '../HomePage/CardsList/CardsList';
 import Map from '../Map/Map';
 import Reviews from '../Reviews/Reviews';
 
-type RoomProps = {
-  offers: offersType[];
-}
-
-const Room = ({ offers }: RoomProps): JSX.Element => {
+const Room = (): JSX.Element => {
   const params = useParams();
+  const reviews = UseAppSelector((state) => state.reviews);
+  const offers = UseAppSelector((state) => state.offers);
   const detectedRoom = offers.find((offer) => offer.id === Number(params.id));
   const difference = 'near-places';
 

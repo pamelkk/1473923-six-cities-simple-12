@@ -1,17 +1,16 @@
+import { UseAppSelector } from '../../../hooks/index';
 import LocationsItem from './LocationsItem/LocationsItem';
 
+const LocationsList = (): JSX.Element => {
+  const cities = UseAppSelector((state) => state.cities);
 
-type LocationsListProps = {
-  cities: string[];
-  changeTown: (arg0: string) => void;
-}
-
-const LocationsList = ({ cities, changeTown }: LocationsListProps): JSX.Element => (
-  <ul className="locations__list tabs__list">
-    {cities.map((city) => (
-      <LocationsItem key={city} city={city} changeTown={changeTown} />
-    ))}
-  </ul>
-);
+  return (
+    <ul className="locations__list tabs__list">
+      {cities.map((city) => (
+        <LocationsItem key={city} city={city} />
+      ))}
+    </ul>
+  );
+};
 
 export default LocationsList;
