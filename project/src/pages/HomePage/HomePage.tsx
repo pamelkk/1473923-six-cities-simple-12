@@ -22,7 +22,7 @@ const HomePage = ({ offers }: HomePageProps): JSX.Element => {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
 
   if (!filteredOffers) {
-    throw new TypeError('The value was promised to always be there');
+    throw new TypeError('The value was promised to always be there!');
   }
 
   return (
