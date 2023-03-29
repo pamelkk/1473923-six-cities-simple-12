@@ -5,8 +5,8 @@ export const Offers: offersType[] = [
     bedrooms: 3,
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 52.366821,
+        longitude: 4.846674,
         zoom: 10
       },
       name: 'Amsterdam'
@@ -43,8 +43,8 @@ export const Offers: offersType[] = [
     bedrooms: 1,
     city: {
       location: {
-        latitude: 51.370216,
-        longitude: 3.895168,
+        latitude: 50.845966,
+        longitude: 4.334524,
         zoom: 10
       },
       name: 'Brussels'
@@ -81,8 +81,8 @@ export const Offers: offersType[] = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 48.876655,
+        longitude: 2.312985,
         zoom: 10
       },
       name: 'Paris'
@@ -119,8 +119,8 @@ export const Offers: offersType[] = [
     bedrooms: 5,
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 50.951674,
+        longitude: 6.937258,
         zoom: 10
       },
       name: 'Cologne'
@@ -152,6 +152,44 @@ export const Offers: offersType[] = [
     rating: 4.8,
     title: 'The Pondhouse - A Magical Place',
     type: 'flat'
+  },
+  {
+    bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.366821,
+        longitude: 4.846674,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: [
+      'Heating'
+    ],
+    host: {
+      avatarUrl: 'https://i.pravatar.cc/128',
+      id: 4,
+      isPro: true,
+      name: 'Angelina'
+    },
+    id: 4,
+    images: [
+      'http://picsum.photos/300/200?r=0.0762163005163316'
+    ],
+    isFavorite: false,
+    isPremium: false,
+    location: {
+      latitude: 52.366721,
+      longitude: 4.846574,
+      zoom: 8
+    },
+    maxAdults: 2,
+    previewImage: 'http://picsum.photos/300/200?r=0.0762163005163316',
+    price: 560,
+    rating: 4.2,
+    title: 'Beautiful & luxurious studio at great location',
+    type: 'apartment'
   },
 ];
 

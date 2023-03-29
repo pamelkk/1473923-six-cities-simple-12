@@ -15,7 +15,7 @@ const LocationsItem = ({ city }: LocationsItemProps): JSX.Element => {
 
   return (
     <li key={city} className="locations__item">
-      <Link onClick={() => changeTown(city)} className={`locations__item-link tabs__item ${town === city ? 'tabs__item--active' : ''}`} to={`/${city}`}>
+      <Link onClick={() => changeTown(city)} className={`locations__item-link tabs__item ${town === city ? 'tabs__item--active' : ''}`} to='#'>
         <span>{city}</span>
       </Link>
     </li>
