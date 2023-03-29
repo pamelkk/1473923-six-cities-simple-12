@@ -12,12 +12,10 @@ function App(): JSX.Element {
       <ScrollToTop />
       <Routes>
         <Route path='/login' element={<Login />} />
-        {/* <Route index element={<HomePage offers={offers} />} /> */}
+        <Route index element={<HomePage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/favorites" element={<Favorites />} />
-        <Route path="/:city" element={<HomePage />}>
-          <Route path='/:city/offer/:id' element={<Room />} />
-        </Route>
+        <Route path='/offer/:id' element={<Room />} />
       </Routes>
     </BrowserRouter>
   );

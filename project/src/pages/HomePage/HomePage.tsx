@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UseAppSelector } from '../../hooks';
+import { offersType } from '../../types/types';
 import Map from '../Map/Map';
+import Sorting from '../Sorting/Sorting';
 import CardsList from './CardsList/CardsList';
 import LocationsList from './Locations/LocationsList';
 
@@ -8,13 +11,17 @@ const HomePage = (): JSX.Element => {
   const offers = UseAppSelector((state) => state.offers);
   const town = UseAppSelector((state) => state.city);
   const difference = 'cities';
-
+  const [currentCard, setCurrentCard] = useState({});
   const filteredOffers = offers.filter((offer) => offer.city.name === town);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
 
   if (!filteredOffers) {
     throw new TypeError('The value was promised to always be there!');
   }
+
+  const changeCurrentCard = (newCard: offersType) => {
+    setCurrentCard(newCard);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -53,7 +60,7 @@ const HomePage = (): JSX.Element => {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${filteredOffers.length === 0 ? 'page__main--index-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -61,31 +68,27 @@ const HomePage = (): JSX.Element => {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{filteredOffers.length} places to stay in {town}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <CardsList offers={filteredOffers} difference={difference} />
-            </section>
-            <div className="cities__right-section">
-              <Map points={filteredOffers} />
-            </div>
-          </div>
+          {filteredOffers.length !== 0 ?
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{filteredOffers.length} places to stay in {town}</b>
+                <Sorting />
+                <CardsList offers={filteredOffers} difference={difference} changeCurrentCard={changeCurrentCard} />
+              </section>
+              <div className="cities__right-section">
+                <Map points={filteredOffers} currentCard={currentCard} />
+              </div>
+            </div> :
+            <div className="cities__places-container cities__places-container--empty container">
+              <section className="cities__no-places">
+                <div className="cities__status-wrapper tabs__content">
+                  <b className="cities__status">No places to stay available</b>
+                  <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
+                </div>
+              </section>
+              <div className="cities__right-section"></div>
+            </div>}
         </div>
       </main>
     </div>
