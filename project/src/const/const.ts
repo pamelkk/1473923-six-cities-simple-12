@@ -31,3 +31,13 @@ export const sortRating = (pointA: offersType, pointB: offersType) => {
     return 0;
   }
 };
+
+export enum APIRoute {
+  hotels = '/hotels',
+  hotelID = '/hotels/{hotelId}',
+  hotelNear = '/hotels/{hotelId}/nearby',
+  comments = '/comments/{hotelId}',
+  commentHotelId = '/comments/{hotelId}',
+  login = '/login',
+  logout = '/logout'
+}

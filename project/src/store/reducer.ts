@@ -4,7 +4,7 @@ import { Offers } from '../mocks/offers';
 import { reviews } from '../mocks/reviews';
 import { SortType } from '../mocks/sortings';
 import { offersType } from '../types/types';
-import { changeCityAction, sortCardsAction, uploadCardsAction } from './actions';
+import { changeCityAction, getCardsAction, sortCardsAction, uploadCardsAction } from './actions';
 
 const initialState = {
   offers: Offers,
@@ -12,7 +12,7 @@ const initialState = {
   reviews: reviews,
 };
 
-export const reducer = createReducer(initialState, (builder) => {
+export const offersReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCityAction, (state, action) => {
       state.city = action.payload;
@@ -23,6 +23,9 @@ export const reducer = createReducer(initialState, (builder) => {
 
       state.offers = filteredOffers;
     })
+    .addCase(getCardsAction, (state, action) => {
+      state.offers = action.payload;
+    })
     .addCase(sortCardsAction, (state, action) => {
       const city = action.payload.city;
       const sortType = action.payload.sortType;
@@ -30,13 +33,13 @@ export const reducer = createReducer(initialState, (builder) => {
       let sortededOffers: offersType[];
       sortededOffers = [];
 
-      if(sortType === SortType.PRICE_LOW) {
+      if (sortType === SortType.PRICE_LOW) {
         sortededOffers = filteredOffers.sort(sortPriceLow);
-      } else if(sortType === SortType.PRICE_HIGH) {
+      } else if (sortType === SortType.PRICE_HIGH) {
         sortededOffers = filteredOffers.sort(sortPriceHigh);
-      } else if(sortType === SortType.TOP) {
+      } else if (sortType === SortType.TOP) {
         sortededOffers = filteredOffers.sort(sortRating);
-      } else if(sortType === SortType.POPULAR) {
+      } else if (sortType === SortType.POPULAR) {
         sortededOffers = filteredOffers;
       }
 
