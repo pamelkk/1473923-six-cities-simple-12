@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { APIRoute } from '../const/const';
 import { AppDispatch, State } from '../types/state';
 import { Review, TOffer } from '../types/types';
-import { getCardsAction } from './actions';
+import { getCardsAction, getReviewsAction } from './actions';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -30,7 +30,7 @@ export const fetchReviewsAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<Review[]>(APIRoute.reviews);
-      dispatch(getCardsAction(data));
+      dispatch(getReviewsAction(data));
     } catch (error) {
       console.log('Error');
     }

@@ -5,13 +5,14 @@ import useMap from '../../hooks/useMap';
 import URL_MARKER_CURRENT from '../../img/pin-active.svg';
 import URL_MARKER_DEFAULT from '../../img/pin.svg';
 import { TOffer } from '../../types/types';
+import { UseAppSelector } from '../../hooks';
 
 type MapProps = {
-  points: TOffer[];
   currentCard?: TOffer;
 }
 
-const Map = ({ points, currentCard }: MapProps): JSX.Element => {
+const Map = ({ currentCard }: MapProps): JSX.Element => {
+  const points = UseAppSelector((state) => state.offers);
   const mapRef = useRef(null);
   const map = useMap(mapRef, points);
   const markersGroup = useRef<LayerGroup>();

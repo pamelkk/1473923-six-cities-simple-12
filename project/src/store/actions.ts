@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { TOffer } from '../types/types';
+import { Review, TOffer } from '../types/types';
 
 export const changeCityAction = createAction('CHANGE_CITY', (newCity: string) => ({ payload: newCity }));
 
@@ -12,3 +12,7 @@ export const sortCardsAction = createAction('SORT_CARDS', (city: string, sortTyp
 export const addReviewAction = createAction('ADD_REVIEW', (text: string) => ({ payload: text }));
 
 export const getCardsAction = createAction('GET_CARDS', (offers: TOffer[]) => ({ payload: offers }));
+
+export const getReviewsAction = createAction('GET_REVIEWS', (reviews: Review[]) => ({ payload: reviews }));
+
+export const makeCardFavoriteAction = createAction('MAKE_CARD_FAVORITE', (id: number, favoriteStatus: boolean) => ({ payload: {id, favoriteStatus} }));

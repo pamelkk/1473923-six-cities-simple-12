@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ratingInPercent } from '../../../const/const';
 import { TOffer } from '../../../types/types';
+import { UseAppDispatch } from '../../../hooks';
+import { makeCardFavoriteAction } from '../../../store/actions';
 
 type CardsProps = {
   offer: TOffer;
@@ -12,6 +14,7 @@ type CardsProps = {
 const Card = ({ offer, difference, changeCurrentCard }: CardsProps): JSX.Element => {
   const { id, isPremium, previewImage, price, title, type, rating, isFavorite } = offer;
   const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
+  const dispatch = UseAppDispatch();
 
   const onMouseHoverChange = (newCard?: TOffer) => {
     changeCurrentCard?.(newCard);
@@ -19,6 +22,7 @@ const Card = ({ offer, difference, changeCurrentCard }: CardsProps): JSX.Element
 
   const changeCardFavoriteStatus = () => {
     setFavoriteStatus(!favoriteStatus);
+    dispatch(makeCardFavoriteAction(id, favoriteStatus));
   };
 
   return (

@@ -1,18 +1,15 @@
-import { Suspense, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UseAppDispatch, UseAppSelector } from '../../hooks';
+import { UseAppSelector } from '../../hooks';
 import { TOffer } from '../../types/types';
 import Map from '../Map/Map';
 import Sorting from '../Sorting/Sorting';
 import CardsList from './CardsList/CardsList';
 import LocationsList from './Locations/LocationsList';
-import { fetchOffersAction } from '../../store/api-actions';
-import Preloader from '../../components/Preloader/Preloader';
 
 const HomePage = (): JSX.Element => {
   const offers = UseAppSelector((state) => state.offers);
   const town = UseAppSelector((state) => state.city);
-  const dispatch = UseAppDispatch();
   const difference = 'cities';
   const [currentCard, setCurrentCard] = useState<TOffer | undefined>();
   const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
@@ -20,13 +17,6 @@ const HomePage = (): JSX.Element => {
   const changeCurrentCard = (newCard?: TOffer) => {
     setCurrentCard?.(newCard);
   };
-
-  useEffect(() => {
-    let isLoading = true;
-    dispatch(fetchOffersAction());
-    isLoading = false;
-    console.log(isLoading)
-  }, []);
 
   return (
     <div className="page page--gray page--main">
@@ -79,12 +69,10 @@ const HomePage = (): JSX.Element => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offers.length} places to stay in {town}</b>
                 <Sorting />
-                <Suspense fallback={<Preloader />}>
-                  <CardsList offers={offers} difference={difference} changeCurrentCard={changeCurrentCard} />
-                </Suspense>
+                <CardsList difference={difference} changeCurrentCard={changeCurrentCard} />
               </section>
               <div className="cities__right-section">
-                <Map points={offers} currentCard={currentCard} />
+                <Map currentCard={currentCard} />
               </div>
             </div> :
             <div className="cities__places-container cities__places-container--empty container">
