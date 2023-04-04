@@ -1,15 +1,15 @@
-import { offersType } from '../types/types';
+import { TOffer } from '../types/types';
 
-export const Offers: offersType[] = [
+export const Offers: TOffer[] = [
   {
     bedrooms: 3,
     city: {
       location: {
-        latitude: 52.366821,
-        longitude: 4.846674,
-        zoom: 10
+        latitude: 48.85661,
+        longitude: 2.351499,
+        zoom: 13
       },
-      name: 'Amsterdam'
+      name: 'Paris'
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: [
@@ -23,17 +23,30 @@ export const Offers: offersType[] = [
     },
     id: 0,
     images: [
-      'http://picsum.photos/300/200?r=0.0762163005163319'
+      'https://12.react.pages.academy/static/hotel/14.jpg',
+      'https://12.react.pages.academy/static/hotel/8.jpg',
+      'https://12.react.pages.academy/static/hotel/19.jpg',
+      'https://12.react.pages.academy/static/hotel/16.jpg',
+      'https://12.react.pages.academy/static/hotel/10.jpg',
+      'https://12.react.pages.academy/static/hotel/15.jpg',
+      'https://12.react.pages.academy/static/hotel/3.jpg',
+      'https://12.react.pages.academy/static/hotel/6.jpg',
+      'https://12.react.pages.academy/static/hotel/13.jpg',
+      'https://12.react.pages.academy/static/hotel/2.jpg',
+      'https://12.react.pages.academy/static/hotel/9.jpg',
+      'https://12.react.pages.academy/static/hotel/1.jpg',
+      'https://12.react.pages.academy/static/hotel/18.jpg',
+      'https://12.react.pages.academy/static/hotel/20.jpg'
     ],
     isFavorite: false,
     isPremium: false,
     location: {
-      latitude: 52.366821,
-      longitude: 4.846674,
-      zoom: 8
+      latitude: 48.862610000000004,
+      longitude: 2.369499,
+      zoom: 16
     },
     maxAdults: 4,
-    previewImage: 'http://picsum.photos/300/200?r=0.0762163005163319',
+    previewImage: 'https://12.react.pages.academy/static/hotel/3.jpg',
     price: 120,
     rating: 4.8,
     title: 'Beautiful & luxurious studio at great location',
@@ -74,7 +87,7 @@ export const Offers: offersType[] = [
     previewImage: 'http://picsum.photos/300/200?r=0.0762563205163319',
     price: 350,
     rating: 4.8,
-    title: 'Loft Studio in the Central Area',
+    title: 'Amazing and Extremely Central Flat',
     type: 'room'
   },
   {

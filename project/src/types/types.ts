@@ -1,37 +1,37 @@
-type GenreCityLocation = {
+type TCityLocation = {
     latitude: number;
     longitude: number;
     zoom: number;
 };
 
-export type GenreCity = {
-    location: GenreCityLocation;
+export type TCity = {
+    location: TCityLocation;
     name: string;
 };
 
-type GenreHost = {
+type THost = {
     avatarUrl: string;
     id: number;
     isPro: boolean;
     name: string;
 };
 
-export type GenreLocation = {
+export type TLocation = {
     latitude: number;
     longitude: number;
     zoom: number;
 };
-export type offersType = {
+export type TOffer = {
     bedrooms: number;
-    city: GenreCity;
+    city: TCity;
     description: string;
     goods: string[];
-    host: GenreHost;
+    host: THost;
     id: number;
     images: string[];
     isFavorite: boolean;
     isPremium: boolean;
-    location: GenreLocation;
+    location: TLocation;
     maxAdults: number;
     previewImage: string;
     price: number;
@@ -40,17 +40,24 @@ export type offersType = {
     type: string;
 };
 
-type GenerUser = {
+type TUser = {
     avatarUrl: string;
     id: number;
     isPro: boolean;
     name: string;
 };
 
-export type User = {
+export type Review = {
     comment: string;
     date: string;
     id: number;
     rating: number;
-    user: GenerUser;
+    user: TUser;
+};
+
+export type TSortType = {
+    POPULAR: string;
+    PRICE_LOW: string;
+    PRICE_HIGH: string;
+    TOP: string;
 };

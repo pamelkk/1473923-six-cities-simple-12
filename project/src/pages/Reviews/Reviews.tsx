@@ -1,9 +1,9 @@
-import { User } from '../../types/types';
+import { Review } from '../../types/types';
 import Form from '../Form/Form';
 import ReviewItem from './ReviewItem/ReviewItem';
 
 type ReviewsProps = {
-  reviews: User[];
+  reviews: Review[];
 }
 
 const Reviews = ({reviews}: ReviewsProps): JSX.Element => (

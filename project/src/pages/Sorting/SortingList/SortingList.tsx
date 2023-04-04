@@ -1,4 +1,4 @@
-import { SortType } from '../../../mocks/sortings';
+import { SortType } from '../../../const/const';
 import SortingItem from '../SortingItem/SortingItem';
 
 type SortingListProps = {

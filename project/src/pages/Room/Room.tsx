@@ -25,6 +25,11 @@ const Room = (): JSX.Element => {
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
+            <div className="property__image-wrapper">
+              {images.map((image) => (
+                <img key={image} className="property__image" src={image} alt="Studio"></img>
+              ))}
+            </div>
             {images.map((image) => (
               <div key={image} className="property__image-wrapper">
                 <img className="property__image" src={image} alt="Studio"></img>

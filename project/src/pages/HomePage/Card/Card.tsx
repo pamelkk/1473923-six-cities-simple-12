@@ -1,28 +1,32 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ratingInPercent } from '../../../const/const';
-import { offersType } from '../../../types/types';
+import { TOffer } from '../../../types/types';
+import { UseAppDispatch } from '../../../hooks';
+import { makeCardFavoriteAction } from '../../../store/actions';
 
 type CardsProps = {
-  offer: offersType;
+  offer: TOffer;
   difference: string;
-  changeCurrentCard: (arg0: offersType | object) => void;
+  changeCurrentCard?: (card?: TOffer) => void;
 }
 
 const Card = ({ offer, difference, changeCurrentCard }: CardsProps): JSX.Element => {
   const { id, isPremium, previewImage, price, title, type, rating, isFavorite } = offer;
   const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
+  const dispatch = UseAppDispatch();
 
-  const onMouseHoverChange = (newCard: offersType) => {
-    changeCurrentCard(newCard);
+  const onMouseHoverChange = (newCard?: TOffer) => {
+    changeCurrentCard?.(newCard);
   };
 
   const changeCardFavoriteStatus = () => {
     setFavoriteStatus(!favoriteStatus);
+    dispatch(makeCardFavoriteAction(id, favoriteStatus));
   };
 
   return (
-    <article className={`${difference}__card place-card`} onMouseEnter={() => onMouseHoverChange(offer)} onMouseLeave={() => onMouseHoverChange({})}>
+    <article className={`${difference}__card place-card`} onMouseEnter={() => onMouseHoverChange(offer)} onMouseLeave={() => onMouseHoverChange()}>
       {isPremium ?
         <div className='place-card__mark'>
           <span>Premium</span>
