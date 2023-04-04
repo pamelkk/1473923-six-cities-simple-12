@@ -1,27 +1,32 @@
-import { useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UseAppSelector } from '../../hooks';
-import { offersType } from '../../types/types';
+import { UseAppDispatch, UseAppSelector } from '../../hooks';
+import { TOffer } from '../../types/types';
 import Map from '../Map/Map';
 import Sorting from '../Sorting/Sorting';
 import CardsList from './CardsList/CardsList';
 import LocationsList from './Locations/LocationsList';
+import { fetchOffersAction } from '../../store/api-actions';
+import Preloader from '../../components/Preloader/Preloader';
 
 const HomePage = (): JSX.Element => {
   const offers = UseAppSelector((state) => state.offers);
   const town = UseAppSelector((state) => state.city);
+  const dispatch = UseAppDispatch();
   const difference = 'cities';
-  const [currentCard, setCurrentCard] = useState({});
-  const filteredOffers = offers.filter((offer) => offer.city.name === town);
+  const [currentCard, setCurrentCard] = useState<TOffer | undefined>();
   const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
 
-  if (!filteredOffers) {
-    throw new TypeError('The value was promised to always be there!');
-  }
-
-  const changeCurrentCard = (newCard: offersType) => {
-    setCurrentCard(newCard);
+  const changeCurrentCard = (newCard?: TOffer) => {
+    setCurrentCard?.(newCard);
   };
+
+  useEffect(() => {
+    let isLoading = true;
+    dispatch(fetchOffersAction());
+    isLoading = false;
+    console.log(isLoading)
+  }, []);
 
   return (
     <div className="page page--gray page--main">
@@ -60,7 +65,7 @@ const HomePage = (): JSX.Element => {
         </div>
       </header>
 
-      <main className={`page__main page__main--index ${filteredOffers.length === 0 ? 'page__main--index-empty' : ''}`}>
+      <main className={`page__main page__main--index ${offers.length === 0 ? 'page__main--index-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -68,16 +73,18 @@ const HomePage = (): JSX.Element => {
           </section>
         </div>
         <div className="cities">
-          {filteredOffers.length !== 0 ?
+          {offers.length !== 0 ?
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{filteredOffers.length} places to stay in {town}</b>
+                <b className="places__found">{offers.length} places to stay in {town}</b>
                 <Sorting />
-                <CardsList offers={filteredOffers} difference={difference} changeCurrentCard={changeCurrentCard} />
+                <Suspense fallback={<Preloader />}>
+                  <CardsList offers={offers} difference={difference} changeCurrentCard={changeCurrentCard} />
+                </Suspense>
               </section>
               <div className="cities__right-section">
-                <Map points={filteredOffers} currentCard={currentCard} />
+                <Map points={offers} currentCard={currentCard} />
               </div>
             </div> :
             <div className="cities__places-container cities__places-container--empty container">

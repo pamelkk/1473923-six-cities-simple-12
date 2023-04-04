@@ -1,8 +1,8 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import leaflet, { Map } from 'leaflet';
-import { offersType } from '../types/types';
+import { TOffer } from '../types/types';
 
-function useMap(mapRef: MutableRefObject<null>, points: offersType[]) {
+function useMap(mapRef: MutableRefObject<null>, points: TOffer[]) {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 

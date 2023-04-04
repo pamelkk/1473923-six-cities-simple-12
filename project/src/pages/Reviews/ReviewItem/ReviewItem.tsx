@@ -1,8 +1,8 @@
 import { ratingInPercent } from '../../../const/const';
-import { User } from '../../../types/types';
+import { Review } from '../../../types/types';
 
 type ReviewItemProps = {
-  review: User;
+  review: Review;
 }
 
 const ReviewItem = ({ review }: ReviewItemProps): JSX.Element => {

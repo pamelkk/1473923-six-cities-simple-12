@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { UseAppDispatch, UseAppSelector } from '../../hooks';
-import { sortCardsAction } from '../../store/actions';
+import { changeSortAction, sortCardsAction } from '../../store/actions';
 import SortingList from './SortingList/SortingList';
 
 const Sorting = (): JSX.Element => {
   const dispatch = UseAppDispatch();
-  const [activeSort, setActiveSort] = useState('Popular');
+  const activeSort = UseAppSelector((state) => state.sorting);
   const [activeSortMenu, setActiveSortMenu] = useState(false);
   const town = UseAppSelector((state) => state.city);
 
   const makeSortActive = (newSort: string) => {
-    setActiveSort(newSort);
+    dispatch(changeSortAction(newSort));
     dispatch(sortCardsAction(town, newSort));
     setActiveSortMenu(!activeSortMenu);
   };

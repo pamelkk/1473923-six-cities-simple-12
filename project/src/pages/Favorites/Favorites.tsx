@@ -1,10 +1,17 @@
-import { UseAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { UseAppDispatch, UseAppSelector } from '../../hooks';
 import CardsList from '../HomePage/CardsList/CardsList';
+import { fetchOffersAction } from '../../store/api-actions';
 
 const Favorites = (): JSX.Element => {
   const offers = UseAppSelector((state) => state.offers);
   const difference = 'favorites';
   const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
+
+  const dispatch = UseAppDispatch();
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+  }, []);
 
   return (
     <div className="page__favorites-container container">

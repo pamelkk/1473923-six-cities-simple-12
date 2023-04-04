@@ -4,11 +4,11 @@ import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import URL_MARKER_CURRENT from '../../img/pin-active.svg';
 import URL_MARKER_DEFAULT from '../../img/pin.svg';
-import { offersType } from '../../types/types';
+import { TOffer } from '../../types/types';
 
 type MapProps = {
-  points: offersType[];
-  currentCard: offersType | object;
+  points: TOffer[];
+  currentCard?: TOffer;
 }
 
 const Map = ({ points, currentCard }: MapProps): JSX.Element => {
@@ -38,7 +38,7 @@ const Map = ({ points, currentCard }: MapProps): JSX.Element => {
           lat: point.location.latitude,
           lng: point.location.longitude,
         }, {
-          icon: (point.city === currentCard.city)
+          icon: (point.city === currentCard?.city)
             ? currentCustomIcon
             : defaultCustomIcon,
         })

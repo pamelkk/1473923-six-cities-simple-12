@@ -1,10 +1,10 @@
-import { offersType } from '../../../types/types';
+import { TOffer } from '../../../types/types';
 import Card from '../Card/Card';
 
 type CardsListProps = {
-  offers: offersType[];
+  offers: TOffer[];
   difference: string;
-  changeCurrentCard: (arg0: offersType | object) => void;
+  changeCurrentCard?: (card?: TOffer) => void;
 }
 
 const CardsList = ({ offers, difference, changeCurrentCard }: CardsListProps): JSX.Element => (

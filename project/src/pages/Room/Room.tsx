@@ -1,12 +1,15 @@
 import { useParams } from 'react-router-dom';
 import { ratingInPercent } from '../../const/const';
-import { UseAppSelector } from '../../hooks';
+import { UseAppDispatch, UseAppSelector } from '../../hooks';
 import CardsList from '../HomePage/CardsList/CardsList';
 import Map from '../Map/Map';
 import Reviews from '../Reviews/Reviews';
+import { fetchOffersAction } from '../../store/api-actions';
+import { useEffect } from 'react';
 
 const Room = (): JSX.Element => {
   const params = useParams();
+  const dispatch = UseAppDispatch();
   const reviews = UseAppSelector((state) => state.reviews);
   const offers = UseAppSelector((state) => state.offers);
   const detectedRoom = offers.find((offer) => offer.id === Number(params.id));
@@ -15,6 +18,10 @@ const Room = (): JSX.Element => {
   if (!detectedRoom) {
     throw new TypeError('The value was promised to always be there!');
   }
+
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+  }, []);
 
   const otherRooms = offers.filter((offer) => offer.id !== Number(params.id));
   const { isPremium, images, price, title, type, rating, maxAdults, bedrooms, goods, host, description } = detectedRoom;
@@ -25,6 +32,11 @@ const Room = (): JSX.Element => {
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
+            <div className="property__image-wrapper">
+              {images.map((image) => (
+                <img key={image} className="property__image" src={image} alt="Studio"></img>
+              ))}
+            </div>
             {images.map((image) => (
               <div key={image} className="property__image-wrapper">
                 <img className="property__image" src={image} alt="Studio"></img>

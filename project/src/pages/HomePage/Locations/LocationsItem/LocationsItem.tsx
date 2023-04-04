@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { UseAppDispatch, UseAppSelector } from '../../../../hooks/index';
-import { changeCityAction } from '../../../../store/actions';
+import { changeCityAction, changeSortAction, uploadCardsAction } from '../../../../store/actions';
 
 type LocationsItemProps = {
   city: string;
@@ -11,6 +11,8 @@ const LocationsItem = ({ city }: LocationsItemProps): JSX.Element => {
   const dispatch = UseAppDispatch();
   const changeTown = (newCity: string) => {
     dispatch(changeCityAction(newCity));
+    dispatch(uploadCardsAction(newCity));
+    dispatch(changeSortAction('Popular'));
   };
 
   return (
