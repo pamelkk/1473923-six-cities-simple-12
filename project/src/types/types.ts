@@ -1,3 +1,5 @@
+import { AuthorizationStatus } from '../const/const';
+
 type TCityLocation = {
     latitude: number;
     longitude: number;
@@ -47,7 +49,7 @@ type TUser = {
     name: string;
 };
 
-export type Review = {
+export type TReview = {
     comment: string;
     date: string;
     id: number;
@@ -60,4 +62,19 @@ export type TSortType = {
     PRICE_LOW: string;
     PRICE_HIGH: string;
     TOP: string;
+};
+
+export type AuthData = {
+    login: string;
+    password: string;
+};
+
+export type UserProcess = {
+    authorizationStatus: AuthorizationStatus;
+};
+
+export type UserData = {
+    id: number;
+    email: string;
+    token: string;
 };

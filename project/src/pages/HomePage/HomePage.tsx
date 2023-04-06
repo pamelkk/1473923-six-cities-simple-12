@@ -6,6 +6,7 @@ import Map from '../Map/Map';
 import Sorting from '../Sorting/Sorting';
 import CardsList from './CardsList/CardsList';
 import LocationsList from './Locations/LocationsList';
+import {AuthorizationStatus} from '../../const/const';
 
 const HomePage = (): JSX.Element => {
   const offers = UseAppSelector((state) => state.offers);
@@ -13,6 +14,7 @@ const HomePage = (): JSX.Element => {
   const difference = 'cities';
   const [currentCard, setCurrentCard] = useState<TOffer | undefined>();
   const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
+  const authorizationStatus = UseAppSelector((state) => state.authorizationStatus);
 
   const changeCurrentCard = (newCard?: TOffer) => {
     setCurrentCard?.(newCard);
@@ -32,25 +34,36 @@ const HomePage = (): JSX.Element => {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <Link to='/favorites'>
-                      <span className="header__favorite-count">{favoriteOffers.length}</span>
+            {authorizationStatus === AuthorizationStatus.Auth ?
+              <nav className="header__nav">
+                <ul className="header__nav-list">
+                  <li className="header__nav-item user">
+                    <a className="header__nav-link header__nav-link--profile" href="#">
+                      <div className="header__avatar-wrapper user__avatar-wrapper">
+                      </div>
+                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <Link to='/favorites'>
+                        <span className="header__favorite-count">{favoriteOffers.length}</span>
+                      </Link>
+                    </a>
+                  </li>
+                  <li className="header__nav-item">
+                    <a className="header__nav-link" href="#">
+                      <span className="header__signout">Sign out</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav> :
+              <nav className="header__nav">
+                <ul className="header__nav-list">
+                  <li className="header__nav-item user">
+                    <Link className="header__nav-link header__nav-link--profile" to="/login">
+                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                      <span className="header__login">Sign in</span>
                     </Link>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+                  </li>
+                </ul>
+              </nav>}
           </div>
         </div>
       </header>

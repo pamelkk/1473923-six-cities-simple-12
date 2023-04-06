@@ -1,15 +1,31 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { sortPriceHigh, sortPriceLow, sortRating, SortType } from '../const/const';
-import { reviews } from '../mocks/reviews';
-import { TOffer, TSortType } from '../types/types';
-import { changeCityAction, changeSortAction, getCardsAction, makeCardFavoriteAction, sortCardsAction, uploadCardsAction } from './actions';
+import { AuthorizationStatus, SortType } from '../const/const';
+import { TReview, TOffer, TSortType } from '../types/types';
+import { requireAuthorizationAction, changeCityAction, changeSortAction, getCardsAction, makeCardFavoriteAction, sortCardsAction, uploadCardsAction, getReviewsAction, uploadReviewsAction, getSpecificCardAction } from './actions';
+import { sortPriceHigh, sortPriceLow, sortRating } from '../utils';
 
-const initialState = {
-  offers: [] as TOffer[],
+type TInitialState = {
+  offers: TOffer[];
+  city: string;
+  sorting: string;
+  reviews: TReview[];
+  reviewsCopy: TReview[];
+  offersCopy: TOffer[];
+  authorizationStatus: AuthorizationStatus;
+  specificOffer: TOffer;
+  specificOfferCopy: TOffer;
+};
+
+const initialState: TInitialState = {
+  offers: [],
   city: 'Paris',
   sorting: 'Popular',
-  reviews: reviews,
-  offersCopy: [] as TOffer[]
+  reviews: [],
+  offersCopy: [],
+  reviewsCopy: [],
+  authorizationStatus: AuthorizationStatus.Unknown,
+  specificOffer: {} as TOffer,
+  specificOfferCopy: {} as TOffer,
 };
 
 export const offersReducer = createReducer(initialState, (builder) => {
@@ -17,22 +33,42 @@ export const offersReducer = createReducer(initialState, (builder) => {
     .addCase(changeCityAction, (state, action) => {
       state.city = action.payload;
     })
+    .addCase(getCardsAction, (state, action) => {
+      state.offers = action.payload;
+      state.offersCopy = action.payload;
+    })
     .addCase(uploadCardsAction, (state, action) => {
       const city = action.payload;
       const filteredOffers = state.offersCopy.filter((offer) => offer.city.name === city);
 
       state.offers = filteredOffers;
     })
-    .addCase(getCardsAction, (state, action) => {
-      state.offers = action.payload;
-      state.offersCopy = action.payload;
+    .addCase(getSpecificCardAction, (state, action) => {
+      // console.log(action.payload)
+      state.specificOffer = action.payload;
+      state.specificOfferCopy = action.payload;
+      // console.log(state.specificOffer)
     })
-    // .addCase(makeCardFavoriteAction, (state, action) => {
-    //   const id = action.payload.id;
-    //   const newStatus = action.payload.favoriteStatus;
-    //   const detectedOffer = state.offers.filter((offer) => offer.id === id);
-    //   console.log(state.offers)
+    // .addCase(uploadReviewsAction, (state, action) => {
+    //   const id = action.payload;
+    //   const filteredReviews = state.offersCopy.filter((offer) => offer.id === id);
+
+    //   state.reviews = filteredReviews;
     // })
+    .addCase(getReviewsAction, (state, action) => {
+      state.reviews = action.payload;
+      state.reviewsCopy = action.payload;
+    })
+    .addCase(requireAuthorizationAction, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(makeCardFavoriteAction, (state, action) => {
+      const id = action.payload.id;
+      const newStatus = action.payload.favoriteStatus;
+      const detectedOffer = state.offersCopy.find((offer) => offer.id === id);
+      console.log(detectedOffer)
+      // detectedOffer.isFavorite = newStatus;
+    })
     .addCase(changeSortAction, (state, action) => {
       state.sorting = action.payload;
     })

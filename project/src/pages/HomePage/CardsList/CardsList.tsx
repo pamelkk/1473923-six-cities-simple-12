@@ -15,7 +15,7 @@ const CardsList = ({ difference, changeCurrentCard }: CardsListProps): JSX.Eleme
   const dispatch = UseAppDispatch();
 
   useEffect(()=> {
-    dispatch(uploadCardsAction(town))
+    dispatch(uploadCardsAction(town));
   }, []);
   return (
     <div className='cities__places-list places__list tabs__content'>
