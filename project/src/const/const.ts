@@ -2,6 +2,8 @@ import { TSortType } from '../types/types';
 
 export const MAX_IMAGES = 6;
 
+export const MAX_REVIEWS = 10;
+
 export const AUTH_FAIL_MESSAGE = 'Не забудьте авторизоваться!';
 
 export enum AuthorizationStatus {

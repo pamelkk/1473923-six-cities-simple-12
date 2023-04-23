@@ -7,11 +7,11 @@ import { fetchSpecificOfferAction } from '../../store/api-actions';
 import { ratingInPercent } from '../../utils';
 import { MAX_IMAGES } from '../../const/const';
 import { useEffect } from 'react';
+import Preloader from '../../components/Preloader/Preloader';
 
 const Room = () => {
   const params = useParams();
   const dispatch = UseAppDispatch();
-  // const reviews = UseAppSelector((state) => state.reviews);
   useEffect(() => {
     dispatch(fetchSpecificOfferAction(Number(params.id)));
   }, []);
@@ -20,7 +20,9 @@ const Room = () => {
   const difference = 'near-places';
   const detectedRoom = UseAppSelector((state) => state.specificOffer);
 
-  console.log(detectedRoom);
+  if(!detectedRoom) {
+    return <Preloader />;
+  }
 
   const otherRooms = offers.filter((offer) => offer.id !== Number(params.id));
   const { isPremium, images, price, title, type, rating, maxAdults, bedrooms, goods, host, description } = detectedRoom;

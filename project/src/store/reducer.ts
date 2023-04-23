@@ -12,7 +12,7 @@ type TInitialState = {
   reviewsCopy: TReview[];
   offersCopy: TOffer[];
   authorizationStatus: AuthorizationStatus;
-  specificOffer: TOffer;
+  specificOffer?: TOffer;
   isLoading: boolean;
 };
 
@@ -24,7 +24,6 @@ const initialState: TInitialState = {
   offersCopy: [],
   reviewsCopy: [],
   authorizationStatus: AuthorizationStatus.Unknown,
-  specificOffer: {} as TOffer,
   isLoading: false
 };
 
@@ -47,16 +46,10 @@ export const offersReducer = createReducer(initialState, (builder) => {
       state.offers = filteredOffers;
     })
     .addCase(getSpecificCardAction, (state, action) => {
-      // console.log(action.payload)
       state.specificOffer = action.payload;
-      // console.log(state.specificOffer)
     })
     .addCase(getReviewsAction, (state, action) => {
       state.reviews = action.payload;
-    })
-    .addCase(getReviewsAction, (state, action) => {
-      state.reviews = action.payload;
-      state.reviewsCopy = action.payload;
     })
     .addCase(requireAuthorizationAction, (state, action) => {
       state.authorizationStatus = action.payload;
