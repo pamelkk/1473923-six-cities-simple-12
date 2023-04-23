@@ -24,11 +24,11 @@ export const sortCardsAction = createAction('SORT_CARDS', (city: string, sortTyp
 //Запрос отзывов
 export const getReviewsAction = createAction('GET_REVIEWS', (reviews: TReview[]) => ({ payload: reviews }));
 
-//Отрисовка отзывов
-export const uploadReviewsAction = createAction('UPLOAD_REVIEWS', (id: number) => ({ payload: id }));
-
 //Добавить отзыв
 export const addReviewAction = createAction('ADD_REVIEW', (text: string) => ({ payload: text }));
 
 //Авторизация
 export const requireAuthorizationAction = createAction<AuthorizationStatus>('REQUIRE_AUTH_STATUS');
+
+//Анимация загрузки
+export const changeLoadingStatusAction = createAction<boolean>('CHANGE_LOADING_STATUS');

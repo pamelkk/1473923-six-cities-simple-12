@@ -2,12 +2,14 @@ import { FormEvent, useRef } from 'react';
 import { UseAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/types';
+import { useNavigate } from 'react-router-dom';
 
 const Login = (): JSX.Element => {
   const emailField = useRef<HTMLInputElement | null>(null);
   const passwordField = useRef<HTMLInputElement | null>(null);
 
   const dispatch = UseAppDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -21,6 +23,7 @@ const Login = (): JSX.Element => {
         login: emailField.current.value,
         password: passwordField.current.value,
       });
+      navigate('/');
     }
   };
 
@@ -46,7 +49,7 @@ const Login = (): JSX.Element => {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" action="#" method="post" onSubmit={() => handleSubmit}>
+              <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input ref={emailField} className="login__input form__input" type="email" name="email" placeholder="Email" required />
