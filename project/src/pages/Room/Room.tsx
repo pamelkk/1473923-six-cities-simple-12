@@ -1,36 +1,41 @@
 import { useParams } from 'react-router-dom';
-import { ratingInPercent } from '../../const/const';
-import { UseAppSelector } from '../../hooks';
+import { UseAppDispatch, UseAppSelector } from '../../hooks';
 import CardsList from '../HomePage/CardsList/CardsList';
 import Map from '../Map/Map';
 import Reviews from '../Reviews/Reviews';
+import { fetchSpecificOfferAction } from '../../store/api-actions';
+import { ratingInPercent } from '../../utils';
+import { MAX_IMAGES } from '../../const/const';
+import { useEffect } from 'react';
+import Preloader from '../../components/Preloader/Preloader';
 
-const Room = (): JSX.Element => {
+const Room = () => {
   const params = useParams();
-  const reviews = UseAppSelector((state) => state.reviews);
-  const offers = UseAppSelector((state) => state.offers);
-  const detectedRoom = offers.find((offer) => offer.id === Number(params.id));
-  const difference = 'near-places';
+  const dispatch = UseAppDispatch();
+  useEffect(() => {
+    dispatch(fetchSpecificOfferAction(Number(params.id)));
+  }, []);
 
-  if (!detectedRoom) {
-    throw new TypeError('The value was promised to always be there!');
+  const offers = UseAppSelector((state) => state.offers);
+  const difference = 'near-places';
+  const detectedRoom = UseAppSelector((state) => state.specificOffer);
+
+  if(!detectedRoom) {
+    return <Preloader />;
   }
 
   const otherRooms = offers.filter((offer) => offer.id !== Number(params.id));
   const { isPremium, images, price, title, type, rating, maxAdults, bedrooms, goods, host, description } = detectedRoom;
   const { avatarUrl, isPro, name } = host;
 
+  const filteredImages = images.slice(0, MAX_IMAGES);
+
   return (
     <div className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            <div className="property__image-wrapper">
-              {images.map((image) => (
-                <img key={image} className="property__image" src={image} alt="Studio"></img>
-              ))}
-            </div>
-            {images.map((image) => (
+            {filteredImages.map((image) => (
               <div key={image} className="property__image-wrapper">
                 <img className="property__image" src={image} alt="Studio"></img>
               </div>))}
@@ -59,10 +64,10 @@ const Room = (): JSX.Element => {
                 {type}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {bedrooms} Bedrooms
+                {bedrooms} {bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
               </li>
               <li className="property__feature property__feature--adults">
-                Max {maxAdults} adults
+                Max {maxAdults} {maxAdults > 1 ? 'adults' : 'adult'}
               </li>
             </ul>
             <div className="property__price">
@@ -90,11 +95,11 @@ const Room = (): JSX.Element => {
                 <p className="property__text">{description}</p>
               </div>
             </div>
-            <Reviews reviews={reviews} />
+            <Reviews />
           </div>
         </div>
         <section className="property__map map">
-          <Map points={otherRooms} />
+          <Map />
         </section>
       </section>
       <div className="container">

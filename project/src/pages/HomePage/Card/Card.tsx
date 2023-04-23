@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ratingInPercent } from '../../../const/const';
 import { TOffer } from '../../../types/types';
 import { UseAppDispatch } from '../../../hooks';
 import { makeCardFavoriteAction } from '../../../store/actions';
+import { ratingInPercent } from '../../../utils';
 
 type CardsProps = {
   offer: TOffer;

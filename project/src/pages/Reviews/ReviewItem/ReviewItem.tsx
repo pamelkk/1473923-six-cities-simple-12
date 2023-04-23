@@ -1,13 +1,16 @@
-import { ratingInPercent } from '../../../const/const';
-import { Review } from '../../../types/types';
+import { TReview } from '../../../types/types';
+import { ratingInPercent } from '../../../utils';
+import dayjs from 'dayjs';
 
 type ReviewItemProps = {
-  review: Review;
+  review: TReview;
 }
 
 const ReviewItem = ({ review }: ReviewItemProps): JSX.Element => {
   const { user, comment, date, rating } = review;
   const { avatarUrl, name } = user;
+
+  const humanizeDate = dayjs(date).format('MMMM YYYY');
 
   return (
     <li className="reviews__item">
@@ -25,7 +28,7 @@ const ReviewItem = ({ review }: ReviewItemProps): JSX.Element => {
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">{date}</time>
+        <time className="reviews__time" dateTime={humanizeDate}>{humanizeDate}</time>
       </div>
     </li>
   );

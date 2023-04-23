@@ -1,15 +1,30 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { sortPriceHigh, sortPriceLow, sortRating, SortType } from '../const/const';
-import { reviews } from '../mocks/reviews';
-import { TOffer, TSortType } from '../types/types';
-import { changeCityAction, changeSortAction, getCardsAction, makeCardFavoriteAction, sortCardsAction, uploadCardsAction } from './actions';
+import { AuthorizationStatus, SortType } from '../const/const';
+import { TReview, TOffer } from '../types/types';
+import { requireAuthorizationAction, changeCityAction, changeSortAction, getCardsAction, sortCardsAction, uploadCardsAction, getReviewsAction, getSpecificCardAction, changeLoadingStatusAction } from './actions';
+import { sortPriceHigh, sortPriceLow, sortRating } from '../utils';
 
-const initialState = {
-  offers: [] as TOffer[],
+type TInitialState = {
+  offers: TOffer[];
+  city: string;
+  sorting: string;
+  reviews: TReview[];
+  reviewsCopy: TReview[];
+  offersCopy: TOffer[];
+  authorizationStatus: AuthorizationStatus;
+  specificOffer?: TOffer;
+  isLoading: boolean;
+};
+
+const initialState: TInitialState = {
+  offers: [],
   city: 'Paris',
   sorting: 'Popular',
-  reviews: reviews,
-  offersCopy: [] as TOffer[]
+  reviews: [],
+  offersCopy: [],
+  reviewsCopy: [],
+  authorizationStatus: AuthorizationStatus.Unknown,
+  isLoading: false
 };
 
 export const offersReducer = createReducer(initialState, (builder) => {
@@ -17,21 +32,34 @@ export const offersReducer = createReducer(initialState, (builder) => {
     .addCase(changeCityAction, (state, action) => {
       state.city = action.payload;
     })
+    .addCase(getCardsAction, (state, action) => {
+      state.offers = action.payload;
+      state.offersCopy = action.payload;
+    })
+    .addCase(changeLoadingStatusAction, (state, action) => {
+      state.isLoading = action.payload;
+    })
     .addCase(uploadCardsAction, (state, action) => {
       const city = action.payload;
       const filteredOffers = state.offersCopy.filter((offer) => offer.city.name === city);
 
       state.offers = filteredOffers;
     })
-    .addCase(getCardsAction, (state, action) => {
-      state.offers = action.payload;
-      state.offersCopy = action.payload;
+    .addCase(getSpecificCardAction, (state, action) => {
+      state.specificOffer = action.payload;
+    })
+    .addCase(getReviewsAction, (state, action) => {
+      state.reviews = action.payload;
+    })
+    .addCase(requireAuthorizationAction, (state, action) => {
+      state.authorizationStatus = action.payload;
     })
     // .addCase(makeCardFavoriteAction, (state, action) => {
-    //   const id = action.payload.id;
-    //   const newStatus = action.payload.favoriteStatus;
-    //   const detectedOffer = state.offers.filter((offer) => offer.id === id);
-    //   console.log(state.offers)
+    //   // const id = action.payload.id;
+    //   // const newStatus = action.payload.favoriteStatus;
+    //   // const detectedOffer = state.offers.find((offer) => offer.id === id);
+    //   // console.log(detectedOffer)
+    //   // detectedOffer.isFavorite = newStatus;
     // })
     .addCase(changeSortAction, (state, action) => {
       state.sorting = action.payload;
@@ -41,7 +69,7 @@ export const offersReducer = createReducer(initialState, (builder) => {
       const sortType = action.payload.sortType;
       const filteredOffers = state.offers.filter((offer) => offer.city.name === city);
 
-      const sortTypeConfig: Record<TSortType, () => TOffer[]> = {
+      const sortTypeConfig = {
         [SortType.PRICE_LOW]: () => filteredOffers.sort(sortPriceLow),
         [SortType.PRICE_HIGH]: () => filteredOffers.sort(sortPriceHigh),
         [SortType.TOP]: () => filteredOffers.sort(sortRating),

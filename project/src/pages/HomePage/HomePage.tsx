@@ -6,6 +6,8 @@ import Map from '../Map/Map';
 import Sorting from '../Sorting/Sorting';
 import CardsList from './CardsList/CardsList';
 import LocationsList from './Locations/LocationsList';
+import {APIRoute, AuthorizationStatus} from '../../const/const';
+import Preloader from '../../components/Preloader/Preloader';
 
 const HomePage = (): JSX.Element => {
   const offers = UseAppSelector((state) => state.offers);
@@ -13,10 +15,16 @@ const HomePage = (): JSX.Element => {
   const difference = 'cities';
   const [currentCard, setCurrentCard] = useState<TOffer | undefined>();
   const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
+  const authorizationStatus = UseAppSelector((state) => state.authorizationStatus);
+  const isLoading = UseAppSelector((state) => state.isLoading);
 
   const changeCurrentCard = (newCard?: TOffer) => {
     setCurrentCard?.(newCard);
   };
+
+  if(isLoading) {
+    return <Preloader />;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -32,25 +40,36 @@ const HomePage = (): JSX.Element => {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <Link to='/favorites'>
-                      <span className="header__favorite-count">{favoriteOffers.length}</span>
+            {authorizationStatus === AuthorizationStatus.Auth ?
+              <nav className="header__nav">
+                <ul className="header__nav-list">
+                  <li className="header__nav-item user">
+                    <a className="header__nav-link header__nav-link--profile" href="#">
+                      <div className="header__avatar-wrapper user__avatar-wrapper">
+                      </div>
+                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <Link to='/favorites'>
+                        <span className="header__favorite-count">{favoriteOffers.length}</span>
+                      </Link>
+                    </a>
+                  </li>
+                  <li className="header__nav-item">
+                    <Link className="header__nav-link" to={APIRoute.logout}>
+                      <span className="header__signout">Sign out</span>
                     </Link>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+                  </li>
+                </ul>
+              </nav> :
+              <nav className="header__nav">
+                <ul className="header__nav-list">
+                  <li className="header__nav-item user">
+                    <Link className="header__nav-link header__nav-link--profile" to={APIRoute.login}>
+                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                      <span className="header__login">Sign in</span>
+                    </Link>
+                  </li>
+                </ul>
+              </nav>}
           </div>
         </div>
       </header>
@@ -69,7 +88,7 @@ const HomePage = (): JSX.Element => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offers.length} places to stay in {town}</b>
                 <Sorting />
-                <CardsList difference={difference} changeCurrentCard={changeCurrentCard} />
+                <CardsList offers={offers} difference={difference} changeCurrentCard={changeCurrentCard} />
               </section>
               <div className="cities__right-section">
                 <Map currentCard={currentCard} />
