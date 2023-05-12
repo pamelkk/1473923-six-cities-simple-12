@@ -16,7 +16,7 @@ const Room = () => {
     dispatch(fetchSpecificOfferAction(Number(params.id)));
   }, []);
 
-  const offers = UseAppSelector((state) => state.offers);
+  const nearbyOffers = UseAppSelector((state) => state.nearbyOffers);
   const difference = 'near-places';
   const detectedRoom = UseAppSelector((state) => state.specificOffer);
 
@@ -24,7 +24,6 @@ const Room = () => {
     return <Preloader />;
   }
 
-  const otherRooms = offers.filter((offer) => offer.id !== Number(params.id));
   const { isPremium, images, price, title, type, rating, maxAdults, bedrooms, goods, host, description } = detectedRoom;
   const { avatarUrl, isPro, name } = host;
 
@@ -105,10 +104,9 @@ const Room = () => {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <CardsList offers={otherRooms} difference={difference} />
+          <CardsList offers={nearbyOffers} difference={difference} />
         </section>
       </div>
-
     </div>
   );
 };

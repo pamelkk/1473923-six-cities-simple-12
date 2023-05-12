@@ -1,10 +1,9 @@
-import { UseAppSelector } from '../../hooks';
+import {UseAppSelector } from '../../hooks';
 import CardsList from '../HomePage/CardsList/CardsList';
 
 const Favorites = (): JSX.Element => {
-  const offers = UseAppSelector((state) => state.offers);
+  const favoriteOffers = UseAppSelector((state) => state.favoriteOffers);
   const difference = 'favorites';
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
 
   return (
     <div className="page__favorites-container container">
@@ -21,7 +20,7 @@ const Favorites = (): JSX.Element => {
                 </div>
               </div>
               <div className="favorites__places">
-                <CardsList offers={favoriteOffers.filter((offer) => offer.city.name === favorite.city.name)} difference={difference} />
+                <CardsList offers={favoriteOffers} difference={difference} />
               </div>
             </li>
           ))}

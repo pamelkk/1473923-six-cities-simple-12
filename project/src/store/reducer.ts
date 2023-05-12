@@ -1,11 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, SortType } from '../const/const';
 import { TReview, TOffer } from '../types/types';
-import { requireAuthorizationAction, changeCityAction, changeSortAction, getCardsAction, sortCardsAction, uploadCardsAction, getReviewsAction, getSpecificCardAction, changeLoadingStatusAction } from './actions';
+import { requireAuthorizationAction, changeCityAction, changeSortAction, getCardsAction, sortCardsAction, uploadCardsAction, getReviewsAction, getSpecificCardAction, changeLoadingStatusAction, addReviewAction, getNearbyCardsAction, getFavoriteCardsAction } from './actions';
 import { sortPriceHigh, sortPriceLow, sortRating } from '../utils';
 
 type TInitialState = {
   offers: TOffer[];
+  nearbyOffers: TOffer[];
+  favoriteOffers: TOffer[];
   city: string;
   sorting: string;
   reviews: TReview[];
@@ -18,12 +20,14 @@ type TInitialState = {
 
 const initialState: TInitialState = {
   offers: [],
+  nearbyOffers: [],
+  favoriteOffers: [],
   city: 'Paris',
   sorting: 'Popular',
   reviews: [],
   offersCopy: [],
   reviewsCopy: [],
-  authorizationStatus: AuthorizationStatus.Unknown,
+  authorizationStatus: AuthorizationStatus.Auth,
   isLoading: false
 };
 
@@ -35,6 +39,13 @@ export const offersReducer = createReducer(initialState, (builder) => {
     .addCase(getCardsAction, (state, action) => {
       state.offers = action.payload;
       state.offersCopy = action.payload;
+    })
+    .addCase(getNearbyCardsAction, (state, action) => {
+      state.nearbyOffers = action.payload;
+    })
+    .addCase(getFavoriteCardsAction, (state, action) => {
+      state.favoriteOffers = action.payload;
+      console.log(action.payload)
     })
     .addCase(changeLoadingStatusAction, (state, action) => {
       state.isLoading = action.payload;
@@ -49,6 +60,9 @@ export const offersReducer = createReducer(initialState, (builder) => {
       state.specificOffer = action.payload;
     })
     .addCase(getReviewsAction, (state, action) => {
+      state.reviews = action.payload;
+    })
+    .addCase(addReviewAction, (state, action) => {
       state.reviews = action.payload;
     })
     .addCase(requireAuthorizationAction, (state, action) => {

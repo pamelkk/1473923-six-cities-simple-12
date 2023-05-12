@@ -57,6 +57,12 @@ export type TReview = {
     user: TUser;
 };
 
+export type TUserComment = {
+    comment: string;
+    id: number;
+    rating: number;
+};
+
 export type TSortType = {
     POPULAR: string;
     PRICE_LOW: string;

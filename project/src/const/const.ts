@@ -4,6 +4,12 @@ export const MAX_IMAGES = 6;
 
 export const MAX_REVIEWS = 10;
 
+export const MIN_LETTERS_REVIEW = 50;
+
+export const MIN_RATING_REVIEW = 0;
+
+export const MAX_LETTERS_REVIEW = 300;
+
 export const AUTH_FAIL_MESSAGE = 'Не забудьте авторизоваться!';
 
 export enum AuthorizationStatus {
@@ -22,9 +28,7 @@ export enum AppRoute {
 
 export enum APIRoute {
   hotels = '/hotels',
-  hotelNear = '/hotels/{hotelId}/nearby',
-  reviews = '/comments/{hotelId}',
-  reviewsHotelId = '/comments/{hotelId}',
+  favorite = '/favorite',
   login = '/login',
   logout = '/logout'
 }

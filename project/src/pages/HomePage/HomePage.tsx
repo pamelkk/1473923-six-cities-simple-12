@@ -11,10 +11,10 @@ import Preloader from '../../components/Preloader/Preloader';
 
 const HomePage = (): JSX.Element => {
   const offers = UseAppSelector((state) => state.offers);
+  const favoriteOffers = UseAppSelector((state) => state.favoriteOffers);
   const town = UseAppSelector((state) => state.city);
   const difference = 'cities';
   const [currentCard, setCurrentCard] = useState<TOffer | undefined>();
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
   const authorizationStatus = UseAppSelector((state) => state.authorizationStatus);
   const isLoading = UseAppSelector((state) => state.isLoading);
 

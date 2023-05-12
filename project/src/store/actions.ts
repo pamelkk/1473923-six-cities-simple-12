@@ -8,6 +8,12 @@ export const changeCityAction = createAction('CHANGE_CITY', (newCity: string) =>
 //Запрос предложений
 export const getCardsAction = createAction('GET_CARDS', (offers: TOffer[]) => ({ payload: offers }));
 
+//Запрос предложений неподалеку
+export const getNearbyCardsAction = createAction('GET_NEARBY_CARDS', (offers: TOffer[]) => ({ payload: offers }));
+
+//Запрос избранных предложений
+export const getFavoriteCardsAction = createAction('GET_FAVORITE_CARDS', (offers: TOffer[]) => ({ payload: offers }));
+
 //Запрос определенного предложения
 export const getSpecificCardAction = createAction('GET_SPECIFIC_CARD', (offer: TOffer) => ({ payload: offer }));
 
@@ -25,10 +31,10 @@ export const sortCardsAction = createAction('SORT_CARDS', (city: string, sortTyp
 export const getReviewsAction = createAction('GET_REVIEWS', (reviews: TReview[]) => ({ payload: reviews }));
 
 //Добавить отзыв
-export const addReviewAction = createAction('ADD_REVIEW', (text: string) => ({ payload: text }));
+export const addReviewAction = createAction('ADD_REVIEW', (data: TReview[]) => ({ payload: data }));
 
 //Авторизация
 export const requireAuthorizationAction = createAction<AuthorizationStatus>('REQUIRE_AUTH_STATUS');
 
 //Анимация загрузки
-export const changeLoadingStatusAction = createAction<boolean>('CHANGE_LOADING_STATUS');
+export const changeLoadingStatusAction = createAction('CHANGE_LOADING_STATUS', (status: boolean) => ({ payload: status }));
